@@ -1,17 +1,14 @@
-#ifndef MAINMENUSTATE_H
-#define MAINMENUSTATE_H
+#ifndef EDITORSTATE_H
+#define EDITORSTATE_H
 
-#include "GameState.h"
-#include "EditorState.h"
+#include "State.h"
 #include "Button.h"
 
-class MainMenuState :
+class EditorState :
 	public State
 {
 private:
 	//Var
-	sf::Texture backgroundTexture;
-	sf::RectangleShape background;
 	sf::Font font;
 
 	std::map<std::string, Button*>buttons;
@@ -23,8 +20,8 @@ private:
 	void initKeybinds();
 	void initButtons();
 public:
-	MainMenuState(sf::RenderWindow* window, std::map <std::string, int>* supportedKeys, std::stack<State*>* states);
-	virtual ~MainMenuState();
+	EditorState(sf::RenderWindow* window, std::map <std::string, int>* supportedKeys, std::stack<State*>* states);
+	virtual ~EditorState();
 
 	//func
 
@@ -33,6 +30,9 @@ public:
 	void update(const float& dt);
 	void renderButtons(sf::RenderTarget* target = NULL);
 	void render(sf::RenderTarget* target = NULL);
+
 };
 
-#endif // !MAINMENUSTATE_H
+
+
+#endif // !EDITORSTATE_H
