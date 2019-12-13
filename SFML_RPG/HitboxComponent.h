@@ -24,7 +24,7 @@ public:
 	virtual ~HitboxComponent();
 
 	//func
-	bool checkIntetsect(const sf::FloatRect& frect);
+	bool checkIntersect(const sf::FloatRect& frect);
 	void update();
 	void render(sf::RenderTarget& target);
 };
