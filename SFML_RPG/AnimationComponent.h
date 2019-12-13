@@ -68,9 +68,35 @@ private:
 				this->sprite.setTextureRect(this->currentRect);
 			}
 		}
+		void play(const float& dt, float mod_percent)
+		{
+			//update timer
+			if (mod_percent < 0.5f)
+			{
+				mod_percent = 0.5f;
+			}
+
+			this->timer +=mod_percent * 100.f * dt;
+			if (this->timer >= this->animationTimer)
+			{
+				//reset timer
+				this->timer = 0.f;
+
+				//Animate
+				if (this->currentRect != this->endRect)
+				{
+					this->currentRect.left += this->width;
+				}
+				else //reset
+				{
+					this->currentRect.left = this->startRect.left;
+				}
+				this->sprite.setTextureRect(this->currentRect);
+			}
+		}
 		void reset()
 		{
-			this->timer = 0.f;
+			this->timer = this->animationTimer;
 			this->currentRect = this->startRect;
 		}
 	};
@@ -78,6 +104,7 @@ private:
 	sf::Texture& textureSheet;
 	std::map<std::string, Animation*> animations;
 	Animation* lastAnimation;
+	Animation* priorityAnimation;
 public:
 
 	AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet);
@@ -89,7 +116,8 @@ public:
 		int frames_x, int frames_y,
 		int width, int height);
 
-	void play(const std::string key, const float& dt);
+	void play(const std::string key, const float& dt, const bool priority = false);
+	void play(const std::string key, const float& dt, const float& modifier, const float& modifier_max, const bool priority = false);
 
 };
 
