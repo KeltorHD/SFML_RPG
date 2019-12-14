@@ -53,7 +53,7 @@ const bool Button::isPressed() const
 
 //Func
 
-void Button::update(const sf::Vector2f mousePos)
+void Button::update(const sf::Vector2f& mousePos)
 {
 	/*Update bool for hover and pressed*/
 
