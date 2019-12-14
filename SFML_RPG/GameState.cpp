@@ -34,7 +34,7 @@ void GameState::initPlayers()
 
 //const / destr
 GameState::GameState(sf::RenderWindow* window, std::map <std::string, int>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states)
+	: State(window, supportedKeys, states), pmenu(*window)
 {
 	this->initKeybinds();
 	this->initTextures();
@@ -67,16 +67,28 @@ void GameState::updateInput(const float& dt)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
 	{
-		this->endState();
+		if (!this->paused)
+		{
+			this->pauseState();
+		}
+		//else
+		//	this->unpauseState();
 	}
 }
 
 void GameState::update(const float& dt)
 {
-	this->updateMousePositions();
-	this->updateInput(dt);
-	
-	this->player->update(dt);
+	if (!this->paused) // unpaused update
+	{
+		this->updateMousePositions();
+		this->updateInput(dt);
+
+		this->player->update(dt);
+	}
+	else //paused update
+	{
+		this->pmenu.update();
+	}
 }
 
 void GameState::render(sf::RenderTarget* target)
@@ -86,5 +98,9 @@ void GameState::render(sf::RenderTarget* target)
 		target = this->window;
 	}
 	this->player->render(*target);
+	if (this->paused) //pause menu render
+	{
+		this->pmenu.render(*target);
+	}
 }
 
