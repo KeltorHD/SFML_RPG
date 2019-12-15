@@ -1,6 +1,6 @@
-#include "Button.h"
+#include "Gui.h"
 
-Button::Button(float x, float y, float width, float height,
+gui::Button::Button(float x, float y, float width, float height,
 	sf::Font* font, std::string text, unsigned character_size,
 	sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
 	sf::Color idle_color, sf::Color hover_color,
@@ -35,14 +35,14 @@ Button::Button(float x, float y, float width, float height,
 
 }
 
-Button::~Button()
+gui::Button::~Button()
 {
 
 }
 
 
 //Accessors
-const bool Button::isPressed() const
+const bool gui::Button::isPressed() const
 {
 	if (this->buttonState == BTN_ACTIVE)
 		return true;
@@ -50,10 +50,19 @@ const bool Button::isPressed() const
 	return false;
 }
 
+const std::string& gui::Button::getText() const
+{
+	return this->text.getString();
+}
+
+//Modifier
+void gui::Button::setText(const std::string text)
+{
+	this->text.setString(text);
+}
 
 //Func
-
-void Button::update(const sf::Vector2f& mousePos)
+void gui::Button::update(const sf::Vector2f& mousePos)
 {
 	/*Update bool for hover and pressed*/
 
@@ -95,8 +104,56 @@ void Button::update(const sf::Vector2f& mousePos)
 
 }
 
-void Button::render(sf::RenderTarget& target)
+void gui::Button::render(sf::RenderTarget& target)
 {
 	target.draw(this->shape);
 	target.draw(this->text);
+}
+
+/*
+
+Drop down list ============================================
+
+*/
+
+gui::DropDownList::DropDownList(sf::Font& font, std::string list[], unsigned nrOfElemetn, unsigned default_index)
+	: font(font)
+{
+	//unsigned nrOfElemetn = sizeof(list) / sizeof(std::string);
+	
+	for (int i = 0; i < nrOfElemetn; i++)
+	{
+		this->list.push_back
+		(
+			new gui::Button(
+				300.f, 480.f, 250.f, 50.f,
+				&this->font, list[i], 50,
+
+				sf::Color(70, 70, 70, 200),
+				sf::Color(250, 250, 250, 250),
+				sf::Color(20, 20, 20, 50),
+
+				sf::Color(70, 70, 70, 0),
+				sf::Color(150, 150, 150, 0),
+				sf::Color(20, 20, 20, 0
+				))
+		);
+	}
+
+	this->activeElement = new gui::Button(*this->list[default_index]);
+}
+
+gui::DropDownList::~DropDownList()
+{
+	delete this->activeElement;
+	for (auto*& i : this->list)
+		delete i;
+}
+
+void gui::DropDownList::update(const sf::Vector2f& mousePos)
+{
+}
+
+void gui::DropDownList::render(sf::RenderTarget& target)
+{
 }
