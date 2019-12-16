@@ -79,6 +79,9 @@ namespace gui
 		DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned nrOfElemetn, unsigned default_index = 0);
 		~DropDownList();
 
+		//accessors
+		const short unsigned& getActiveElementId() const;
+
 		//func
 		const bool getKeyTime();
 		void updateKeyTime(const float& dt);
