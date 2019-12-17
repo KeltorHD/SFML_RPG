@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Gui.h"
 
 gui::Button::Button(float x, float y, float width, float height,
@@ -163,7 +164,7 @@ gui::DropDownList::DropDownList(float x, float y,
 		sf::Color(20, 20, 20, 50)
 	);
 
-	for (int i = 0; i < nrOfElemetn; i++)
+	for (unsigned short i = 0; i < nrOfElemetn; i++)
 	{
 		this->list.push_back
 		(
@@ -192,7 +193,7 @@ gui::DropDownList::DropDownList(float x, float y,
 gui::DropDownList::~DropDownList()
 {
 	delete this->activeElement;
-	for (int i = 0; i < this->list.size(); i++)
+	for (size_t i = 0; i < this->list.size(); i++)
 	{
 		delete this->list[i];
 	}

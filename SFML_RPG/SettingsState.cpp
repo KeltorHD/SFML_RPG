@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SettingsState.h"
 
 //init
@@ -81,7 +82,7 @@ void SettingsState::initText()
 {
 	this->optionsText.setFont(this->font);
 	this->optionsText.setPosition(sf::Vector2f(100.f, 450.f));
-	this->optionsText.setCharacterSize(30.f);
+	this->optionsText.setCharacterSize(30);
 	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
 
 	this->optionsText.setString(
