@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include "PauseMenu.h"
+#include "TileMap.h"
 
 class GameState :
 	public State
@@ -11,6 +12,8 @@ private:
 	PauseMenu* pmenu;
 	sf::Font font;
 	Player* player;
+
+	TileMap map;
 
 	//Func
 	void initFonts();
