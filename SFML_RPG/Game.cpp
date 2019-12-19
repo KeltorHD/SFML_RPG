@@ -7,46 +7,35 @@ void Game::initVariables()
 {
 	this->window = NULL;
 	this->dt = 0;
-	this->fullscreen = 0;
 }
+
+void Game::initGraphicsSettings()
+{
+	this->gfxSettings.loadFromFile("Config/graphics.ini");
+
+}
+
+
 
 //Initializer func
 void Game::initWindow()
 {
-	std::ifstream ifs("Config/window.ini");
-
-	this->videoModes = sf::VideoMode::getFullscreenModes();
-
-	std::string title = "None";
-	sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
-
-	bool fullscreen = false;
-	unsigned framerate_limit = 120;
-	bool vertical_sync_enabled = false;
-	unsigned antialiasing_level = 0;
-
-	if (ifs.is_open())
-	{
-		std::getline(ifs, title);
-		ifs >> window_bounds.width >> window_bounds.height;
-		ifs >> fullscreen;
-		ifs >> framerate_limit;
-		ifs >> vertical_sync_enabled;
-		ifs >> antialiasing_level;
-	}
-	ifs.close();
-
-	this->windowSettings.antialiasingLevel = antialiasing_level;
-
-
-	this->fullscreen = fullscreen;
-	if (this->fullscreen)
-		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Fullscreen, this->windowSettings);
+	
+	if (this->gfxSettings.fullscreen)
+		this->window = new sf::RenderWindow(
+			this->gfxSettings.resolution, 
+			this->gfxSettings.title, 
+			sf::Style::Fullscreen, 
+			this->gfxSettings.contextSettings);
 	else
-		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
+		this->window = new sf::RenderWindow(
+			this->gfxSettings.resolution, 
+			this->gfxSettings.title,
+			sf::Style::Titlebar | sf::Style::Close,
+			this->gfxSettings.contextSettings);
 
-	this->window->setFramerateLimit(framerate_limit);
-	this->window->setVerticalSyncEnabled(vertical_sync_enabled);
+	this->window->setFramerateLimit(this->gfxSettings.framerateLimit);
+	this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
 }
 
 void Game::initKeys()
@@ -84,6 +73,8 @@ void Game::initStates()
 
 Game::Game()
 {
+	this->initVariables();
+	this->initGraphicsSettings();
 	this->initWindow();
 	this->initKeys();
 	this->initStates();
