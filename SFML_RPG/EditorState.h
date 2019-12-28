@@ -6,6 +6,11 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 
+class State;
+class GUI;
+class PauseMenu;
+class TileMap;
+
 class EditorState :
 	public State
 {
