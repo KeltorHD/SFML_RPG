@@ -31,7 +31,7 @@ private:
 	void initPauseMenu();
 	void initButtons();
 public:
-	EditorState(sf::RenderWindow* window, std::map <std::string, int>* supportedKeys, std::stack<State*>* states);
+	EditorState(StateData* state_data);
 	virtual ~EditorState();
 
 	//func

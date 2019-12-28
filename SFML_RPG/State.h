@@ -6,11 +6,12 @@
 
 class Player;
 class GraphicsSettings;
+class State;
 
 class StateData
 {
 public:
-	StateData(){}
+	StateData() {};
 
 	//var
 	float gridSize;
@@ -25,6 +26,7 @@ class State
 private:
 
 protected:
+	StateData* stateData;
 	std::stack<State*>* states;
 
 	sf::RenderWindow* window;
@@ -47,7 +49,7 @@ protected:
 	virtual void initKeybinds() = 0;
 
 public:
-	State(StateData& state_data);
+	State(StateData* state_data);
 	virtual ~State();
 
 	//accessors
