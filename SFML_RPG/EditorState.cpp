@@ -116,7 +116,7 @@ void EditorState::updateButtons()
 
 void EditorState::updateGui()
 {
-	this->selectorRect.setPosition(this->mousePosView);
+	this->selectorRect.setPosition(this->mousePosGrid.x * this->stateData->gridSize, this->mousePosGrid.y * this->stateData->gridSize);
 }
 
 void EditorState::updatePauseMenuButtons()
