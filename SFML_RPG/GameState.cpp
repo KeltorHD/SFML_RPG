@@ -50,6 +50,11 @@ void GameState::initPauseMenu()
 	this->pmenu->addButton("QUIT", 800.f, "Quit");
 }
 
+void GameState::initTileMap()
+{
+	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10);
+}
+
 //const / destr
 GameState::GameState(StateData* state_data)
 	: State(state_data)
@@ -59,12 +64,14 @@ GameState::GameState(StateData* state_data)
 	this->initTextures();
 	this->initPauseMenu();
 	this->initPlayers();
+	this->initTileMap();
 }
 
 GameState::~GameState()
 {
 	delete this->pmenu;
 	delete this->player;
+	delete this->tileMap;
 }
 
 void GameState::updateInput(const float& dt)

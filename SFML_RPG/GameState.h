@@ -13,7 +13,7 @@ private:
 	sf::Font font;
 	Player* player;
 
-	TileMap map;
+	TileMap* tileMap;
 
 	//Func
 	void initFonts();
@@ -21,6 +21,7 @@ private:
 	void initTextures();
 	void initPlayers();
 	void initPauseMenu();
+	void initTileMap();
 public:
 	GameState(StateData* state_data);
 	virtual ~GameState();
