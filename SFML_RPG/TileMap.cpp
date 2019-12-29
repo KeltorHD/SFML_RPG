@@ -22,7 +22,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height)
 			for (size_t z = 0; z < this->layers; z++)
 			{
 				this->map[x][y].resize(this->layers);
-				this->map[x][y].push_back(nullptr);
+				this->map[x][y].push_back(NULL);
 			}
 		}
 	}
@@ -56,15 +56,28 @@ void TileMap::render(sf::RenderTarget& target)
 		{
 			for (auto* z : y)
 			{
-				if (z != nullptr)
+				if (z != NULL)
 					z->render(target);
 			}
 		}
 	}
 }
 
-void TileMap::addTile()
+void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z)
 {
+	if (x < this->maxSize.x && 
+		y < this->maxSize.y &&
+		z <= this->layers)
+	{
+		if (this->map[x][y][z] == NULL) // ok to add?
+		{
+			/* OK to add Tile*/
+			this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF);
+			std::cout << "DEBUG: ADDED TILE\n";
+
+		}
+
+	}
 }
 
 void TileMap::removeTile()

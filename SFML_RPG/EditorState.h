@@ -41,6 +41,7 @@ public:
 	//func
 
 	void updateInput(const float& dt);
+	void updateEditorInput(const float& dt);
 	void updateButtons();
 	void updateGui();
 	void updatePauseMenuButtons();
