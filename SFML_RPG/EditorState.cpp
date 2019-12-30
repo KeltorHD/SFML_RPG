@@ -70,7 +70,7 @@ void EditorState::initGui()
 	this->selectorRect.setTexture(this->tileMap->getTileSheet());
 	this->selectorRect.setTextureRect(this->textureRect);
 	
-	this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f, this->tileMap->getTileSheet());
+	this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f, this->stateData->gridSize, this->tileMap->getTileSheet());
 }
 
 void EditorState::initTileMap()
@@ -166,7 +166,7 @@ void EditorState::updateGui()
 		<< "\n" << this->textureRect.left << " " << this->textureRect.top;
 	this->cursorText.setString(ss.str());
 
-	this->textureSelector->update();
+	this->textureSelector->update(this->mousePosWindow);
 }
 
 void EditorState::updatePauseMenuButtons()
