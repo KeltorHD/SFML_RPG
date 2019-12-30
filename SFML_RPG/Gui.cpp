@@ -302,6 +302,9 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 	this->selector.setFillColor(sf::Color::Transparent);
 	this->selector.setOutlineThickness(1.f);
 	this->selector.setOutlineColor(sf::Color::Red);
+
+	this->textureRect.width = static_cast<int>(gridSize);
+	this->textureRect.height = static_cast<int>(gridSize);
 }
 
 gui::TextureSelector::~TextureSelector()
@@ -312,6 +315,11 @@ gui::TextureSelector::~TextureSelector()
 const bool& gui::TextureSelector::getActive() const
 {
 	return this->active;
+}
+
+const sf::IntRect& gui::TextureSelector::getTextureRect() const
+{
+	return this->textureRect;
 }
 
 //func
@@ -331,6 +339,10 @@ void gui::TextureSelector::update(const sf::Vector2i mousePosWindow)
 			this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize,
 			this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize
 		);
+
+		//update texture Rect
+		this->textureRect.left = static_cast<int>(this->selector.getPosition().x - this->bounds.getPosition().x);
+		this->textureRect.top = static_cast<int>(this->selector.getPosition().y - this->bounds.getPosition().y);
 	}
 }
 
@@ -338,5 +350,7 @@ void gui::TextureSelector::render(sf::RenderTarget& target)
 {
 	target.draw(this->bounds);
 	target.draw(this->sheet);
-	target.draw(this->selector);
+
+	if (this->active)
+		target.draw(this->selector);
 }

@@ -95,6 +95,7 @@ namespace gui
 
 		//accessors
 		const bool& getActive() const;
+		const sf::IntRect& getTextureRect() const;
 
 		//func
 		void update(const sf::Vector2i mousePosWindow);
