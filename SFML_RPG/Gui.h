@@ -81,8 +81,12 @@ namespace gui
 	class TextureSelector
 	{
 	private:
+		float keyTime;
+		const float keyTimeMax;
 		float gridSize;
 		bool active;
+		bool hidden;
+		gui::Button* hide_btn;
 		sf::RectangleShape bounds;
 		sf::Sprite sheet;
 		sf::RectangleShape selector;
@@ -90,15 +94,20 @@ namespace gui
 		sf::IntRect textureRect;
 
 	public:
-		TextureSelector(float x, float y, float width, float height, float gridSize, const sf::Texture* texture_sheet);
+		TextureSelector(float x, float y, 
+			float width, float height, 
+			float gridSize, const sf::Texture* texture_sheet, 
+			sf::Font& font, std::string text);
 		~TextureSelector();
 
 		//accessors
+		const bool getKeyTime();
 		const bool& getActive() const;
 		const sf::IntRect& getTextureRect() const;
 
 		//func
-		void update(const sf::Vector2i mousePosWindow);
+		void updateKeyTime(const float& dt);
+		void update(const sf::Vector2i mousePosWindow, const float& dt);
 		void render(sf::RenderTarget& target);
 	};
 }
