@@ -14,6 +14,8 @@ private:
 	std::string textureFile;
 	sf::Texture tileSheet;
 
+	//func
+	void clear();
 public:
 	TileMap(float gridSize, unsigned width, unsigned height, std::string texture_file);
 	virtual ~TileMap();

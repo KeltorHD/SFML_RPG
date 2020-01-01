@@ -54,6 +54,8 @@ void EditorState::initPauseMenu()
 	this->pmenu->addButton("QUIT", 800.f, "Quit");
 
 	this->pmenu->addButton("SAVE", 700.f, "Save");
+	
+	this->pmenu->addButton("LOAD", 600.f, "Load");
 }
 
 void EditorState::initButtons()
@@ -193,8 +195,12 @@ void EditorState::updatePauseMenuButtons()
 {
 	if (this->pmenu->isButtonPressed("QUIT"))
 		this->endState();
+
 	if (this->pmenu->isButtonPressed("SAVE"))
-		this->tileMap->saveToFile("test.mp");
+		this->tileMap->saveToFile("level.mp");
+
+	if (this->pmenu->isButtonPressed("LOAD"))
+		this->tileMap->loadFromFile("level.mp");
 }
 
 void EditorState::update(const float& dt)
