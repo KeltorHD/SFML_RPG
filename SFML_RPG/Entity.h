@@ -28,8 +28,13 @@ public:
 		float offset_x, float offset_y,
 		float width, float height);
 
-	//func
+	//accessors
+	virtual const sf::Vector2f& getPosition() const;
+
+	//modifiers
 	virtual void setPosition(const float x, const float y);
+
+	//func
 	virtual void move(const float x, const float y, const float& dt);
 
 	virtual void update(const float& dt);

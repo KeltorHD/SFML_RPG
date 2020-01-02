@@ -12,6 +12,18 @@ void GameState::initFonts()
 
 }
 
+void GameState::initView()
+{
+	this->view.setSize(sf::Vector2f(
+		this->stateData->gfxSettings->resolution.width,
+		this->stateData->gfxSettings->resolution.height
+	));
+	this->view.setCenter(
+		this->stateData->gfxSettings->resolution.width / 2.f,
+		this->stateData->gfxSettings->resolution.height / 2.f
+	);
+}
+
 void GameState::initKeybinds()
 {
 	std::ifstream ifs("Config/gamestate_keybinds.ini");
@@ -53,6 +65,7 @@ void GameState::initPauseMenu()
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "Resources/Images/Tiles/tilesheet1.png");
+	this->tileMap->loadFromFile("Levels/1.mp");
 }
 
 //const / destr
@@ -60,6 +73,7 @@ GameState::GameState(StateData* state_data)
 	: State(state_data)
 {
 	this->initFonts();
+	this->initView();
 	this->initKeybinds();
 	this->initTextures();
 	this->initPauseMenu();
@@ -72,6 +86,12 @@ GameState::~GameState()
 	delete this->pmenu;
 	delete this->player;
 	delete this->tileMap;
+}
+
+//Func
+void GameState::updateView(const float& dt)
+{
+	this->view.setCenter(this->player->getPosition());
 }
 
 void GameState::updateInput(const float& dt)
@@ -116,19 +136,21 @@ void GameState::updatePauseMenuButtons()
 
 void GameState::update(const float& dt)
 {
-	this->updateMousePositions();
+	this->updateMousePositions(&this->view);
 	this->updateKeyTime(dt);
 	this->updateInput(dt);
 
 	if (!this->paused) // unpaused update
 	{
+		this->updateView(dt);
+
 		this->updatePlayerInput(dt);
 
 		this->player->update(dt);
 	}
 	else //paused update
 	{
-		this->pmenu->update(this->mousePosView);
+		this->pmenu->update(this->mousePosWindow);
 		this->updatePauseMenuButtons();
 	}
 }
@@ -140,11 +162,13 @@ void GameState::render(sf::RenderTarget* target)
 		target = this->window;
 	}
 
-	//this->map.render(*target);
+	target->setView(this->view);
+	this->tileMap->render(*target);
 
 	this->player->render(*target);
 	if (this->paused) //pause menu render
 	{
+		target->setView(this->window->getDefaultView());
 		this->pmenu->render(*target);
 	}
 }
