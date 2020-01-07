@@ -18,9 +18,12 @@ public:
 		bool collision = false, short type = TileTypes::DEFAULT);
 	virtual ~Tile();
 
-	//func
+	//accessors
+	const bool& getCollision() const;
+	const sf::Vector2f& getPosition() const;
 	const std::string getAsString() const;
 
+	//func
 	void update();
 	void render(sf::RenderTarget& target);
 };

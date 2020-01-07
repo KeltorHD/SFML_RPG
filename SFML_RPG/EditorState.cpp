@@ -93,9 +93,14 @@ void EditorState::initGui()
 	this->selectorRect.setTexture(this->tileMap->getTileSheet());
 	this->selectorRect.setTextureRect(this->textureRect);
 
-	this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f,
-	this->stateData->gridSize, this->tileMap->getTileSheet(),
-	this->font, "TX");
+	this->textureSelector = new gui::TextureSelector(
+		20.f, 20.f, 500.f, 500.f,
+		this->stateData->gridSize, 
+		this->tileMap->getTileSheet(),
+		this->font, "TX"
+	);
+
+
 }
 
 void EditorState::initTileMap()
@@ -169,7 +174,7 @@ void EditorState::updateEditorInput(const float& dt)
 	}
 
 	//add a Tile
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeyTime())
 	{
 		if (!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow)))
 		{
@@ -238,7 +243,7 @@ void EditorState::updateGui(const float& dt)
 		<< "\n" << this->mousePosGrid.x << " " << this->mousePosGrid.y
 		<< "\n" << this->textureRect.left << " " << this->textureRect.top
 		<< "\n" << "Collision: " << this->collision
-		<< "\n" << "Tupe: " << this->type;
+		<< "\n" << "Type: " << this->type;
 	this->cursorText.setString(ss.str());
 }
 
@@ -248,10 +253,10 @@ void EditorState::updatePauseMenuButtons()
 		this->endState();
 
 	if (this->pmenu->isButtonPressed("SAVE"))
-		this->tileMap->saveToFile("level.mp");
+		this->tileMap->saveToFile("Levels/level.mp");
 
 	if (this->pmenu->isButtonPressed("LOAD"))
-		this->tileMap->loadFromFile("level.mp");
+		this->tileMap->loadFromFile("Levels/level.mp");
 }
 
 void EditorState::update(const float& dt)

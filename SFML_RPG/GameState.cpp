@@ -81,7 +81,7 @@ void GameState::initPauseMenu()
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "Resources/Images/Tiles/tilesheet1.png");
-	this->tileMap->loadFromFile("Levels/1.mp");
+	this->tileMap->loadFromFile("Levels/level.mp");
 }
 
 //const / destr
@@ -108,7 +108,10 @@ GameState::~GameState()
 //Func
 void GameState::updateView(const float& dt)
 {
-	this->view.setCenter(this->player->getPosition());
+	this->view.setCenter(
+		std::floor(this->player->getPosition().x),
+		std::floor(this->player->getPosition().y)
+	);
 }
 
 void GameState::updateInput(const float& dt)
@@ -151,6 +154,12 @@ void GameState::updatePauseMenuButtons()
 		this->endState();
 }
 
+void GameState::updateTileMap(const float& dt)
+{
+	this->tileMap->update();
+	this->tileMap->updateCollision(this->player);
+}
+
 void GameState::update(const float& dt)
 {
 	this->updateMousePositions(&this->view);
@@ -164,6 +173,8 @@ void GameState::update(const float& dt)
 		this->updatePlayerInput(dt);
 
 		this->player->update(dt);
+
+		this->updateTileMap(dt);
 	}
 	else //paused update
 	{
