@@ -65,6 +65,8 @@ void State::updateMousePositions(sf::View* view)
 			static_cast<unsigned> (this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
 			static_cast<unsigned> (this->mousePosView.y) / static_cast<unsigned>(this->gridSize)
 		);
+
+	this->window->setView(this->window->getDefaultView());
 }
 
 void State::updateKeyTime(const float& dt)

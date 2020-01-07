@@ -24,6 +24,7 @@ private:
 	TileMap* tileMap;
 
 	//Func
+	void initDeferredRender();
 	void initView();
 	void initKeybinds();
 	void initFonts();
