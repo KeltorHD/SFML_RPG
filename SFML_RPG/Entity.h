@@ -30,6 +30,7 @@ public:
 
 	//accessors
 	virtual const sf::Vector2f& getPosition() const;
+	virtual const sf::FloatRect& getGlobalBounds() const;
 
 	//modifiers
 	virtual void setPosition(const float x, const float y);
@@ -37,8 +38,8 @@ public:
 	//func
 	virtual void move(const float x, const float y, const float& dt);
 
-	virtual void update(const float& dt);
-	virtual void render(sf::RenderTarget& target);
+	virtual void update(const float& dt) = 0;
+	virtual void render(sf::RenderTarget& target) = 0;
 };
 
 

@@ -46,22 +46,36 @@ void Entity::createHitboxComponent(sf::Sprite& Sprite,
 
 const sf::Vector2f& Entity::getPosition() const
 {
+	if (this->hitboxComponent)
+		return this->hitboxComponent->getPosition();
+	
 	return this->sprite.getPosition();
+}
+
+const sf::FloatRect& Entity::getGlobalBounds() const
+{
+	if (this->hitboxComponent)
+		return this->hitboxComponent->getGlobalBounds();
+
+	return this->sprite.getGlobalBounds();
 }
 
 //func
 
 void Entity::setPosition(const float x, const float y)
 {
-	this->sprite.setPosition(x, y);
+	if (this->hitboxComponent)
+		return this->hitboxComponent->setPosition(x,y);
+	else 
+		this->sprite.setPosition(x, y);
 }
 
 void Entity::move(const float dir_x, const float dir_y, const float& dt)
 {
 	if (this->movementComponent)
-	{
 		this->movementComponent->move(dir_x, dir_y, dt); //sets velocity
-	}
+	else
+		this->sprite.move(dir_x * dt, dir_y * dt);
 }
 
 void Entity::update(const float& dt)
@@ -71,8 +85,5 @@ void Entity::update(const float& dt)
 
 void Entity::render(sf::RenderTarget& target)
 {
-	target.draw(this->sprite);
-
-	if (this->hitboxComponent)
-		this->hitboxComponent->render(target);
+	
 }
