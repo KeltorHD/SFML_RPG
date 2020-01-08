@@ -33,6 +33,12 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
 	this->layers = 1;
 	this->textureFile = texture_file;
 
+	this->fromX = 0;
+	this->toX = 0;
+	this->fromY = 0;
+	this->toY = 0;
+	this->layer = 0;
+
 	this->map.resize(this->maxSizeWorldGrid.x, std::vector< std::vector<Tile*> >());
 	for (size_t x = 0; x < this->maxSizeWorldGrid.x; x++)
 	{
@@ -207,16 +213,66 @@ void TileMap::updateCollision(Entity* entity)
 {
 	//World bounds
 	if (entity->getPosition().x < 0.f)
+	{
 		entity->setPosition(0.f, entity->getPosition().y);
+		entity->stopVelocityX();
+	}
 	else if (entity->getPosition().x + entity->getGlobalBounds().width > this->maxSizeWorldF.x)
+	{
 		entity->setPosition(this->maxSizeWorldF.x - entity->getGlobalBounds().width, entity->getPosition().y);
+		entity->stopVelocityX();
+	}
 
 	if (entity->getPosition().y < 0.f)
+	{
 		entity->setPosition(entity->getPosition().x, 0.f);
+		entity->stopVelocityY();
+	}
 	else if (entity->getPosition().y + entity->getGlobalBounds().height > this->maxSizeWorldF.y)
+	{
 		entity->setPosition(entity->getPosition().x, this->maxSizeWorldF.y - entity->getGlobalBounds().height);
+		entity->stopVelocityY();
+	}
 
 	//Tiles
+	this->layer = 0;
+
+	this->fromX = entity->getGridPosition(this->gridSizeU).x - 1;
+	if (this->fromX < 0)
+		this->fromX = 0;
+	else if (this->fromX > this->maxSizeWorldGrid.x)
+		this->fromX = this->maxSizeWorldGrid.x;
+
+	this->toX = entity->getGridPosition(this->gridSizeU).x + 3;
+	if (this->toX < 0)
+		this->toX = 0;
+	else if (this->toX > this->maxSizeWorldGrid.x)
+		this->toX = this->maxSizeWorldGrid.x;
+
+	this->fromY = entity->getGridPosition(this->gridSizeU).y - 1;
+	if (this->fromY < 0)
+		this->fromY = 0;
+	else if (this->fromY > this->maxSizeWorldGrid.y)
+		this->fromY = this->maxSizeWorldGrid.y;
+
+	this->toY = entity->getGridPosition(this->gridSizeU).y + 3;
+	if (this->toY < 0)
+		this->toY = 0;
+	else if (this->toY > this->maxSizeWorldGrid.y)
+		this->toY = this->maxSizeWorldGrid.y;
+
+
+	for (size_t x = this->fromX; x < this->toX; x++)
+	{
+		for (size_t y = this->fromY; y < this->toY; y++)
+		{
+			if (this->map[x][y][layer]->intersects(entity->getGlobalBounds()) &&
+				this->map[x][y][layer]->getCollision())
+			{
+				std::cout << "COLLISION!!!" << std::endl;
+			}
+		}
+	}
 }
 
 void TileMap::update()

@@ -20,6 +20,13 @@ private:
 	sf::Texture tileSheet;
 	sf::RectangleShape collisionBox;
 
+	//culling
+	int fromX;
+	int toX;
+	int fromY;
+	int toY;
+	int layer;
+
 	//func
 	void clear();
 public:

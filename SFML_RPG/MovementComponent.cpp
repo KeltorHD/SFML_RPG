@@ -13,8 +13,6 @@ MovementComponent::~MovementComponent()
 
 }
 
-
-
 //Accessors
 const float& MovementComponent::getMaxVelocity() const
 {
@@ -26,10 +24,6 @@ const sf::Vector2f& MovementComponent::getVelocity() const
 	return this->velocity;
 }
 
-
-
-
-//FUNC
 const bool MovementComponent::getState(const short unsigned state) const
 {
 	switch (state)
@@ -67,6 +61,22 @@ const bool MovementComponent::getState(const short unsigned state) const
 	return false;
 }
 
+//func
+void MovementComponent::stopVelocity()
+{
+	this->velocity.x = 0;
+	this->velocity.y = 0;
+}
+
+void MovementComponent::stopVelocityX()
+{
+	this->velocity.x = 0;
+}
+
+void MovementComponent::stopVelocityY()
+{
+	this->velocity.y = 0;
+}
 
 void MovementComponent::move(const float dir_x, const float dir_y, const float& dt)
 {

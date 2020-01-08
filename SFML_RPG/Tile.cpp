@@ -48,6 +48,11 @@ const std::string Tile::getAsString() const
 }
 
 //func
+const bool Tile::intersects(const sf::FloatRect bounds) const
+{
+	return this->shape.getGlobalBounds().intersects(bounds);
+}
+
 void Tile::update()
 {
 }
