@@ -17,15 +17,16 @@ public:
 
 	//accessors
 	const sf::Vector2f& getPosition() const;
-	const sf::FloatRect& getGlobalBounds() const;
-	const sf::FloatRect& getNextPosition(const sf::Vector2f velocity);
+	const sf::FloatRect getGlobalBounds() const;
+	const sf::FloatRect& getNextPosition(const sf::Vector2f& velocity);
 
 	//modifiers
 	void setPosition(const sf::Vector2f& position);
-	void setPosition(const float& x, const float& y);
+	void setPosition(const float x, const float y);
 
 	//func
 	bool intersect(const sf::FloatRect& frect);
+
 	void update();
 	void render(sf::RenderTarget& target);
 };
