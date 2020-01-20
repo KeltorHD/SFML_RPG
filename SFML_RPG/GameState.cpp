@@ -31,12 +31,12 @@ void GameState::initDeferredRender()
 void GameState::initView()
 {
 	this->view.setSize(sf::Vector2f(
-		this->stateData->gfxSettings->resolution.width,
-		this->stateData->gfxSettings->resolution.height
+		static_cast<float>(this->stateData->gfxSettings->resolution.width),
+		static_cast<float>(this->stateData->gfxSettings->resolution.height)
 	));
 	this->view.setCenter(sf::Vector2f(
-		this->stateData->gfxSettings->resolution.width / 2.f,
-		this->stateData->gfxSettings->resolution.height / 2.f
+		static_cast<float>(this->stateData->gfxSettings->resolution.width / 2.f),
+		static_cast<float>(this->stateData->gfxSettings->resolution.height / 2.f)
 	));
 }
 
@@ -156,7 +156,6 @@ void GameState::updatePauseMenuButtons()
 
 void GameState::updateTileMap(const float& dt)
 {
-	this->tileMap->update();
 	this->tileMap->updateCollision(this->player, dt);
 }
 

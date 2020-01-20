@@ -1,6 +1,15 @@
 #include "stdafx.h"
 #include "State.h"
 
+StateData::StateData()
+{
+	this->gfxSettings = NULL;
+	this->gridSize = NULL;
+	this->states = NULL;
+	this->supportedKeys = NULL;
+	this->window = NULL;
+}
+
 State::State(StateData* state_data)
 {
 	this->stateData = state_data;

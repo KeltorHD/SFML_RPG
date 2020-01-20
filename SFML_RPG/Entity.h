@@ -5,6 +5,10 @@
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
 
+class HitboxComponent;
+class AnimationComponent;
+class MovementComponent;
+
 class Entity
 {
 private:

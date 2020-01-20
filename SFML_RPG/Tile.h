@@ -26,6 +26,7 @@ public:
 
 	//func
 	const bool intersects(const sf::FloatRect bounds) const;
+
 	void update();
 	void render(sf::RenderTarget& target);
 };

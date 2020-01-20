@@ -64,18 +64,18 @@ const bool MovementComponent::getState(const short unsigned state) const
 //func
 void MovementComponent::stopVelocity()
 {
-	this->velocity.x = 0;
-	this->velocity.y = 0;
+	this->velocity.x = 0.f;
+	this->velocity.y = 0.f;
 }
 
 void MovementComponent::stopVelocityX()
 {
-	this->velocity.x = 0;
+	this->velocity.x = 0.f;
 }
 
 void MovementComponent::stopVelocityY()
 {
-	this->velocity.y = 0;
+	this->velocity.y = 0.f;
 }
 
 void MovementComponent::move(const float dir_x, const float dir_y, const float& dt)

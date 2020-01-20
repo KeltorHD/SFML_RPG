@@ -9,7 +9,7 @@ HitboxComponent::HitboxComponent(sf::Sprite& sprite,
 	this->nextPosition.left = 0.f;
 	this->nextPosition.top = 0.f;
 	this->nextPosition.width = width;
-	this->nextPosition.height = width;
+	this->nextPosition.height = height;
 
 	this->hitbox.setPosition(this->sprite.getPosition().x + offset_x, this->sprite.getPosition().y + offset_y);
 	this->hitbox.setSize(sf::Vector2f(width, height));
@@ -38,6 +38,7 @@ const sf::FloatRect& HitboxComponent::getNextPosition(const sf::Vector2f& veloci
 {
 	this->nextPosition.left = this->hitbox.getPosition().x + velocity.x;
 	this->nextPosition.top = this->hitbox.getPosition().y + velocity.y;
+	
 	return this->nextPosition;
 }
 

@@ -77,13 +77,14 @@ const sf::FloatRect Entity::getGlobalBounds() const
 const sf::FloatRect& Entity::getNextPositionBounds(const float& dt) const
 {
 	if (this->hitboxComponent && this->movementComponent)
+	{
 		return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
+	}
 
 	return sf::FloatRect(-1.f, -1.f, -1.f, -1.f);
 }
 
 //func
-
 void Entity::setPosition(const float x, const float y)
 {
 	if (this->hitboxComponent)
@@ -96,8 +97,6 @@ void Entity::move(const float dir_x, const float dir_y, const float& dt)
 {
 	if (this->movementComponent)
 		this->movementComponent->move(dir_x, dir_y, dt); //sets velocity
-	else
-		this->sprite.move(dir_x * dt, dir_y * dt);
 }
 
 void Entity::stopVelocity()

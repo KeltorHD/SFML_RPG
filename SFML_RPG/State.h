@@ -11,7 +11,7 @@ class State;
 class StateData
 {
 public:
-	StateData() {};
+	StateData();
 
 	//var
 	float gridSize;
