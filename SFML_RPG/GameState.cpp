@@ -193,6 +193,9 @@ void GameState::render(sf::RenderTarget* target)
 	this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
 
 	this->player->render(this->renderTexture);
+
+	this->tileMap->renderDeferrend(this->renderTexture);
+
 	if (this->paused) //pause menu render
 	{
 		this->renderTexture.setView(this->renderTexture.getDefaultView());

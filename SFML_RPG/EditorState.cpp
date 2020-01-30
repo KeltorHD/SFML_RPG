@@ -95,7 +95,7 @@ void EditorState::initGui()
 	this->selectorRect.setTextureRect(this->textureRect);
 
 	this->textureSelector = new gui::TextureSelector(
-		20.f, 20.f, 500.f, 500.f,
+		20.f, 20.f, 800.f, 500.f,
 		this->stateData->gridSize, 
 		this->tileMap->getTileSheet(),
 		this->font, "TX"
@@ -190,7 +190,7 @@ void EditorState::updateEditorInput(const float& dt)
 		}
 	}
 	//remove a Tile
-	else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime())
 	{
 		if (!this->sidebar.getGlobalBounds().contains(sf::Vector2f(this->mousePosWindow)))
 		{
@@ -309,12 +309,11 @@ void EditorState::renderGui(sf::RenderTarget& target)
 void EditorState::render(sf::RenderTarget* target)
 {
 	if (!target)
-	{
 		target = this->window;
-	}
 
 	target->setView(this->view);
 	this->tileMap->render(*target, this->mousePosGrid);
+	this->tileMap->renderDeferrend(*target);
 
 	target->setView(this->window->getDefaultView());
 	this->renderButtons(*target);
