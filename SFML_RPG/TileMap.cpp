@@ -9,7 +9,7 @@ void TileMap::clear()
 		{
 			for (int z = 0; z < this->layers; z++)
 			{
-				for (int k = 0; k < this->map[x][y][z].size(); k++)
+				for (size_t k = 0; k < this->map[x][y][z].size(); k++)
 				{
 					delete this->map[x][y][z][k];
 					this->map[x][y][z][k] = NULL;
@@ -127,7 +127,7 @@ void TileMap::saveToFile(const std::string file_name)
 				{
 					if (!this->map[x][y][z].empty())
 					{
-						for (int k = 0; k < this->map[x][y][z].size(); k++)
+						for (size_t k = 0; k < this->map[x][y][z].size(); k++)
 						{
 							out_file << x << " " << y << " " << z << " "
 							<< this->map[x][y][z][k]->getAsString()
@@ -294,7 +294,7 @@ void TileMap::updateCollision(Entity* entity, const float& dt)
 	{
 		for (int y = this->fromY; y < this->toY; y++)
 		{
-			for (int k = 0; k < this->map[x][y][this->layer].size(); k++)
+			for (size_t k = 0; k < this->map[x][y][this->layer].size(); k++)
 			{
 				sf::FloatRect wallBounds = this->map[x][y][this->layer][k]->getGlobalBounds();
 
@@ -389,7 +389,7 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition)
 	{
 		for (int y = this->fromY; y < this->toY; y++)
 		{
-			for (int k = 0; k < map[x][y][this->layer].size(); k++)
+			for (size_t k = 0; k < map[x][y][this->layer].size(); k++)
 			{
 				if (this->map[x][y][this->layer][k]->getType() == TileTypes::DOODAD)
 				{

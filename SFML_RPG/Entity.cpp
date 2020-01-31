@@ -87,7 +87,7 @@ const sf::FloatRect& Entity::getNextPositionBounds(const float& dt) const
 		return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
 	}
 
-	return sf::FloatRect(-1.f, -1.f, -1.f, -1.f);
+	return sf::FloatRect();
 }
 
 //func
