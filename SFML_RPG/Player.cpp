@@ -35,13 +35,39 @@ Player::~Player()
 
 }
 
+//accessors
 AttributeComponent* Player::getAttributeComponent()
 {
 	return this->attributeComponent;
 }
 
-
 //func
+void Player::loseHp(const int hp)
+{
+	this->attributeComponent->hp -= hp;
+	if (this->attributeComponent->hp < 0)
+		this->attributeComponent->hp = 0;
+}
+
+void Player::gainHp(const int hp)
+{
+	this->attributeComponent->hp += hp;
+	if (this->attributeComponent->hp > this->attributeComponent->hpMax)
+		this->attributeComponent->hp = this->attributeComponent->hpMax;
+}
+
+void Player::loseExp(const unsigned exp)
+{
+	this->attributeComponent->exp -= exp;
+	if (this->attributeComponent->exp < 0)
+		this->attributeComponent->exp = 0;
+}
+
+void Player::gainExp(const unsigned exp)
+{
+	this->attributeComponent->gainExp(exp);
+}
+
 void Player::updateAttack()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))

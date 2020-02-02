@@ -11,8 +11,16 @@ private:
 
 	sf::Font font;
 
+	/* EXP bar */
+
+
+	/* HP Bar */
+	std::string hpBarString;
+	sf::Text HpBarText;
 	sf::RectangleShape hpBarBack;
 	sf::RectangleShape hpBarInner;
+
+	float hpBarMaxWidth;
 
 	//func
 	void initFont();
