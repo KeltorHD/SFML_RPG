@@ -280,10 +280,10 @@ gui::TextureSelector::TextureSelector(float x, float y,
 	sf::Font& font, std::string text)
 	: keyTimeMax(1.f), keyTime(0.f)
 {
-	this->active = false;
 	this->gridSize = gridSize;
-	this->hidden = true;
-	float offset = 100.f;
+	this->active = false;
+	this->hidden = false;
+	float offset = gridSize;
 
 	this->bounds.setSize(sf::Vector2f(width, height));
 	this->bounds.setPosition(x + offset, y);
